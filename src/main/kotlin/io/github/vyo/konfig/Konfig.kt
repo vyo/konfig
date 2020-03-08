@@ -25,3 +25,8 @@ object Konfig : Map<String, Any> by KonfigurationProviderFactory.build() {
 }
 
 typealias NestedKonfig = Map<String, Any>
+
+
+fun main() {
+    Konfig.also { println(it) }
+}

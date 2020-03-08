@@ -7,13 +7,16 @@ import io.github.vyo.konfig.DEFAULT_CONFIG_FILE_YML
 import io.github.vyo.konfig.Konfig
 import java.net.URL
 
+sealed class KonfigurationException(message: String) : RuntimeException(message)
+class KonfigurationParsingException(message: String) : KonfigurationException(message)
+
 internal enum class KonfigurationFormat(val extension: String) {
     YML("yml"),
     JSON("json"),
     PROPERTIES("properties");
 
     fun defaultURL(): URL? {
-        return when(this) {
+        return when (this) {
             YML -> Konfig::class.java.classLoader?.getResource(DEFAULT_CONFIG_FILE_YML)
             JSON -> Konfig::class.java.classLoader?.getResource(DEFAULT_CONFIG_FILE_JSON)
             PROPERTIES -> Konfig::class.java.classLoader?.getResource(DEFAULT_CONFIG_FILE_PROPERTIES)
@@ -27,7 +30,7 @@ internal enum class KonfigurationFormat(val extension: String) {
                 JSON.extension -> JSON
                 PROPERTIES.extension -> PROPERTIES
                 "yaml" -> YML
-                else -> throw RuntimeException("unknown format: $extension")
+                else -> throw KonfigurationParsingException("unknown format: $extension")
             }
         }
 
