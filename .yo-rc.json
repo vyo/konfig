@@ -1,0 +1,12 @@
+{
+  "generator-gitignore-io": {
+    "options": [
+      "gradle",
+      "intellij+all",
+      "linux",
+      "macos",
+      "vim",
+      "windows"
+    ]
+  }
+}
